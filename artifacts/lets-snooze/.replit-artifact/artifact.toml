@@ -1,0 +1,27 @@
+kind = "mobile"
+previewPath = "/"
+title = "Let's Snooze"
+version = "1.0.0"
+id = "artifacts/lets-snooze"
+router = "expo-domain"
+
+[[integratedSkills]]
+name = "expo"
+version = "1.0.0"
+
+[[services]]
+ensurePreviewReachable = "/status"
+name = "expo"
+paths = [ "/" ]
+localPort = 24449
+
+[services.development]
+run = "pnpm --filter @workspace/lets-snooze run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/lets-snooze", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/lets-snooze", "run", "serve" ]
+
+[services.env]
+PORT = "24449"
+BASE_PATH = "/"

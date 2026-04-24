@@ -1,0 +1,58 @@
+name: Deploy API Server to Azure App Service
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'artifacts/api-server/**'
+      - 'lib/**'
+      - 'pnpm-workspace.yaml'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/deploy-api.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    name: Build and deploy API server
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --filter @workspace/api-server run build
+
+      - name: Create startup package.json
+        run: |
+          cat > artifacts/api-server/dist/package.json << 'EOF'
+          {
+            "name": "lets-snooze-api",
+            "version": "1.0.0",
+            "type": "module",
+            "engines": { "node": ">=22" },
+            "scripts": { "start": "node index.mjs" }
+          }
+          EOF
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_APP_SERVICE_NAME }}
+          publish-profile: ${{ secrets.AZURE_APP_SERVICE_PUBLISH_PROFILE }}
+          package: artifacts/api-server/dist

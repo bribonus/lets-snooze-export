@@ -1,0 +1,26 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "u1P1IVg8jU1LSuNsyG_mP"
+uri = "file://artifacts/lets-snooze/assets/images/icon.png"
+type = "image"
+title = "lets_snooze_app_icon"
+
+[[generated]]
+id = "LkqPB66mrKK7MvMtV2itw"
+uri = "file://artifacts/landing/src/assets/images/hero-abstract.png"
+type = "image"
+title = "Soft abstract resting shapes"
+
+[[generated]]
+id = "dKMAmL_q5s-af6gp24rna"
+uri = "file://artifacts/landing/src/assets/images/bedtime-peace.png"
+type = "image"
+title = "Peaceful cozy bedroom illustration"
+
+[[generated]]
+id = "vbvX4nEH3cbW9wqS-J90X"
+uri = "file://artifacts/landing/src/assets/images/morning-light.png"
+type = "image"
+title = "Soft morning light on bed"
