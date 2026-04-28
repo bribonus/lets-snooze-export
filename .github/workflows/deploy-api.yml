@@ -5,17 +5,19 @@ on:
     branches:
       - main
     paths:
-      - 'artifacts/api-server/**'
-      - 'lib/**'
-      - 'pnpm-workspace.yaml'
-      - 'pnpm-lock.yaml'
-      - '.github/workflows/deploy-api.yml'
+      - "artifacts/api-server/**"
+      - "lib/**"
+      - "pnpm-workspace.yaml"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/deploy-api.yml"
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    name: Build and deploy API server
+    name: Build API server
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
@@ -24,35 +26,56 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 10
+          run_install: false
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'pnpm'
+          node-version: "22"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
-      - name: Build API server
-        run: pnpm --filter @workspace/api-server run build
+      # PORT and BASE_PATH are required by the Vite config.
+      - name: Build
+        run: pnpm -r --if-present run build
+        env:
+          NODE_ENV: production
+          PORT: "3000"
+          BASE_PATH: /
 
-      - name: Create startup package.json
+      # Copy only the compiled output into a clean deploy/ folder.
+      # Azure only needs the built files, not the TypeScript source code.
+      - name: Prepare deployment package
         run: |
-          cat > artifacts/api-server/dist/package.json << 'EOF'
-          {
-            "name": "lets-snooze-api",
-            "version": "1.0.0",
-            "type": "module",
-            "engines": { "node": ">=22" },
-            "scripts": { "start": "node index.mjs" }
-          }
-          EOF
+          mkdir -p deploy/artifacts/api-server
+          cp -r artifacts/api-server/dist deploy/artifacts/api-server/dist
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: deploy/
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy API server
+    needs: [build]
+    permissions:
+      contents: read
+
+    steps:
+      - name: Download deployment artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: node-app
+          path: deploy/
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ secrets.AZURE_APP_SERVICE_NAME }}
           publish-profile: ${{ secrets.AZURE_APP_SERVICE_PUBLISH_PROFILE }}
-          package: artifacts/api-server/dist
+          package: deploy/artifacts/api-server/dist
