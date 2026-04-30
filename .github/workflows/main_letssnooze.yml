@@ -43,7 +43,7 @@ jobs:
       # NODE_ENV=production tells build tools to optimize output.
       # PORT and BASE_PATH are required by the Vite config.
       - name: Build
-        run: pnpm -r --if-present run build
+        run: pnpm -r --filter '!@workspace/lets-snooze' --if-present run build
         env:
           NODE_ENV: production
           PORT: "3000"
