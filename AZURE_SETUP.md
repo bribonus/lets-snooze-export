@@ -81,3 +81,4 @@ DATABASE_URL="<your-azure-postgres-url>" pnpm --filter @workspace/db run push
 ```
 
 brianne bonus
+hi
