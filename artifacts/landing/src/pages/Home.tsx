@@ -56,7 +56,7 @@ export default function Home() {
           <a href="#testimonials" className="hover:text-foreground transition-colors">Stories</a>
         </nav>
         <Button asChild className="rounded-full px-6 bg-foreground text-background hover:bg-foreground/90 shadow-md hover:shadow-lg transition-all">
-          <a href="/">Open App</a>
+          <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net"
         </Button>
       </header>
 
@@ -88,7 +88,7 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <Button asChild size="lg" className="rounded-full px-8 h-14 text-lg bg-foreground hover:bg-foreground/90 text-background shadow-xl hover:shadow-foreground/20 hover:-translate-y-1 transition-all">
-                <a href="/">
+                <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net"
                   Reclaim your bedtime <ChevronRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
@@ -267,7 +267,7 @@ export default function Home() {
             </p>
             
             <Button asChild size="lg" className="rounded-full px-12 h-16 text-xl bg-background text-foreground hover:bg-background/90 shadow-2xl hover:scale-105 transition-transform duration-300">
-              <a href="/">
+              <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net"
                 Open Let's Snooze
               </a>
             </Button>
