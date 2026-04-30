@@ -88,7 +88,7 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <Button asChild size="lg" className="rounded-full px-8 h-14 text-lg bg-foreground hover:bg-foreground/90 text-background shadow-xl hover:shadow-foreground/20 hover:-translate-y-1 transition-all">
-                <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net"
+                <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net" target="_blank" rel="noopener noreferrer">
                   Reclaim your bedtime <ChevronRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
@@ -267,8 +267,8 @@ export default function Home() {
             </p>
             
             <Button asChild size="lg" className="rounded-full px-12 h-16 text-xl bg-background text-foreground hover:bg-background/90 shadow-2xl hover:scale-105 transition-transform duration-300">
-              <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net"
-                Open Let's Snooze
+              <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net" target="_blank" rel="noopener noreferrer">
+              Open Let's Snooze
               </a>
             </Button>
           </div>
