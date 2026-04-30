@@ -43,7 +43,7 @@ jobs:
       # NODE_ENV=production tells build tools to optimize output.
       # PORT and BASE_PATH are required by the Vite config.
       - name: Build
-        run: pnpm -r --filter '!@workspace/lets-snooze' --if-present run build
+        run: pnpm --filter '@workspace/api-server' --filter '@workspace/landing' run build
         env:
           NODE_ENV: production
           PORT: "3000"
@@ -53,8 +53,9 @@ jobs:
       # Azure only needs the built files, not the TypeScript source code.
       - name: Prepare deployment package
         run: |
-          mkdir -p deploy/artifacts/api-server
+          mkdir -p deploy/public
           cp -r artifacts/api-server/dist/. deploy/
+          cp -r artifacts/landing/dist/public/. deploy/public/
 
       # Upload the deploy/ folder so the deploy job can access it.
       - name: Upload artifact for deployment job
