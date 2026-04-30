@@ -54,9 +54,7 @@ jobs:
       - name: Prepare deployment package
         run: |
           mkdir -p deploy/artifacts/api-server
-          mkdir -p deploy/artifacts/lets-snooze
-          cp -r artifacts/api-server/dist deploy/artifacts/api-server/dist
-          cp -r artifacts/lets-snooze/dist deploy/artifacts/lets-snooze/dist
+          cp -r artifacts/api-server/dist/. deploy/
 
       # Upload the deploy/ folder so the deploy job can access it.
       - name: Upload artifact for deployment job
