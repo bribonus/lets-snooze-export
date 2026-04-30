@@ -56,7 +56,7 @@ export default function Home() {
           <a href="#testimonials" className="hover:text-foreground transition-colors">Stories</a>
         </nav>
         <Button asChild className="rounded-full px-6 bg-foreground text-background hover:bg-foreground/90 shadow-md hover:shadow-lg transition-all">
-          <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net"
+          <a href="https://ashy-moss-0384b1e10.7.azurestaticapps.net" target="_blank" rel="noopener noreferrer">Open App</a>
         </Button>
       </header>
 
